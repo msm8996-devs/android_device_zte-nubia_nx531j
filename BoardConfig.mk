@@ -20,7 +20,7 @@ BOARD_VENDOR := zte-nubia
 DEVICE_PATH := device/zte-nubia/nx531j
 
 # Inherit from common msm8996-common
--include device/zte-nubia/msm8996-common/BoardConfigCommon.mk
+include device/zte-nubia/msm8996-common/BoardConfigCommon.mk
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := nx531j,NX531J
@@ -79,6 +79,13 @@ BOARD_ROOT_EXTRA_SYMLINKS := \
     /vendor/dsp:/dsp \
     /vendor/firmware_mnt:/firmware \
     /vendor/bt_firmware:/bt_firmware
+
+# Recovery
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+TARGET_RECOVERY_UI_BLANK_UNBLANK_ON_INIT := true
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
 
 # Security patch level
 VENDOR_SECURITY_PATCH := 2020-02-20
