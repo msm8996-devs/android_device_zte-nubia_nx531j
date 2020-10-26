@@ -31,4 +31,33 @@ export VENDOR=zte-nubia
 
 export DEVICE_BRINGUP_YEAR=2016
 
+function blob_fixup() {
+    case "${1}" in
+    vendor/bin/imsrcsd)
+        patchelf --add-needed "libbase_shim.so" "${2}"
+        ;;
+
+    # Patch RIL blobs for VNDK
+    vendor/lib64/lib-dplmedia.so)
+        patchelf --remove-needed "libmedia.so" "${2}"
+        ;;
+        
+    # Patch Camera blobs for VNDK
+    vendor/lib/libmmcamera2_stats_modules.so)
+        sed -i "s|libgui.so|libfui.so|g" "${2}"
+        sed -i "s|libandroid.so|libcamshim.so|g" "${2}"
+        ;;
+
+    # Patch Camera blobs for VNDK
+    vendor/lib/libmmcamera_ppeiscore.so)
+        sed -i "s|libgui.so|libfui.so|g" "${2}"
+        ;;
+
+    # Patch Camera blobs for VNDK
+    vendor/lib/libmpbase.so)
+        patchelf --remove-needed "libandroid.so" "${2}"
+        ;;
+    esac
+}
+
 "./../../${VENDOR}/${DEVICE_COMMON}/extract-files.sh" "$@"
