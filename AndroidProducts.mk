@@ -15,3 +15,8 @@
 
 PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/lineage_nx531j.mk
+
+COMMON_LUNCH_CHOICES := \
+    lineage_nx531j-userdebug \
+    lineage_nx531j-eng \
+    lineage_nx531j-user
